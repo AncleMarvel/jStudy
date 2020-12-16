@@ -36,7 +36,26 @@
      -->
 
     <script>
-        
+        'use strict';
+        let formEl = document.querySelector("form");
+        let inputs = document.querySelectorAll("input");
+
+        formEl.addEventListener('submit', function(event) {
+            emptyForm(inputs, event);
+        });
+
+        function emptyForm (inputs, event) {
+            inputs.forEach(function(input) {
+                if (input.value == "") {
+                    input.style.background = "red";
+                } else {
+                    input.style.background = "white";
+                }
+            });
+            event.preventDefault();
+            console.log("Form submiiting is stopped");
+            alert("Please fill in the all fields")
+        }
     </script>
 </body>
 </html>

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="product">
         <div>Товар 1</div>
@@ -29,7 +31,7 @@
     1. Найдите все кнопки, например с помощью querySelectorAll
     2. Переберите полученную коллекцию кнопок, например с помощью forEach,
     и каждой кнопке назначьте в качестве обработчика клика фукнцию
-    buttonClickHandler (увидите ее ниже в коде)
+    buttonClickHandler (увидите ее ниже в коде) ЕЁ НЕТУ НИЖЕ В КОДЕ
     3. Когда функция buttonClickHandler будет срабатывать вы из объекта
     события получаете элемент на котором произошло событие (свойство target),
     затем получаете родителя кнопки по коротой кликнули (свойство parentNode),
@@ -41,7 +43,21 @@
     -->
 
     <script>
-        
+        'use strict';
+        let btns = document.querySelectorAll("button");
+
+        btns.forEach(function (btn) {
+            btn.addEventListener('click', function(event) {
+                buttonClickHandler(event.target);
+            });
+        });
+        //buttonClickHandler небыло ниже в коде
+
+        function buttonClickHandler (target) {
+            target.parentNode.style.background = "lightgreen";
+            target.innerText = "Added";
+        }
     </script>
 </body>
+
 </html>

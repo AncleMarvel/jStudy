@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="products">
         <div class="product">
@@ -41,7 +43,15 @@
     -->
 
     <script>
-        
+        // Эт чет прям изичное задание
+        'use strict';
+        let imgs = document.querySelectorAll("img");
+        setTimeout(() => {
+            imgs.forEach(function (img, idx) {
+                img.setAttribute("src", `images/${idx+1}.jpg`);
+            });
+        }, 3000);
     </script>
 </body>
+
 </html>
