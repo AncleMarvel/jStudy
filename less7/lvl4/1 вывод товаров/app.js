@@ -75,6 +75,12 @@ const products = {
     ],
 };
 
+let btns = document.querySelectorAll("button");
+let div = document.querySelector(".products");
+// console.dir(btns[0]);
+btns.forEach(function (btn) {
+    btn.addEventListener('click', clickHandler);
+});
 
 /**
  * Эта функция должна вызываться при клике по кнопкам.
@@ -82,10 +88,11 @@ const products = {
  */
 function clickHandler(event) {
     //вам нужно очищать содержимое .products
-    
+    div.innerHTML = "";
+
     //в showCategory надо передать строку с типом категории, тип берите
     //из атрибута data-type у кнопки, по которой кликнули.
-    
+    showCategory(event.target.dataset['type']);
 }
 
 /**
@@ -96,7 +103,20 @@ function clickHandler(event) {
  * по которой кликнули.
  */
 function showCategory(category) {
-    
+
+    let productList;
+
+    if (category == "phones") {
+        productList = products.phones;
+    } else if (category == "tv") {
+        productList = products.tv;
+    } else {
+        productList = products.tablets;
+    }
+
+    for (let i = 0; i < productList.length; i++) {
+        div.insertAdjacentHTML("beforeend", getProductMarkup(productList[i]));
+    }
 }
 
 /**
@@ -109,5 +129,12 @@ function showCategory(category) {
  * в верху этого файла.
  */
 function getProductMarkup(product) {
+    let productMurkup = `
+    <div>${product.name}</div>
+    <img src="${product.imageUrl}" alt="">
+    <div>${product.price}</div>
+    <a href="https://example.com/producs/${product.id}">Подробнее</a>
+    `;
 
+    return productMurkup;
 }
