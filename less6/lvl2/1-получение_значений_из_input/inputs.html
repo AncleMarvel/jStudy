@@ -19,7 +19,13 @@
     -->
 
     <script>
-        
+        "use strict";
+        let span = document.querySelector("span");
+        let fromEl =  document.querySelector("input");
+        fromEl.addEventListener('change', function(event) {
+            let inputInner = event.target.value;
+            span.innerText = inputInner;
+        });
     </script>
 </body>
 </html>
