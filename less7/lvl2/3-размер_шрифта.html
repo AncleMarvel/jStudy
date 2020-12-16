@@ -22,7 +22,14 @@
     
 
     <script>
-        
+        "use strict";
+        let input = document.querySelector("input");
+        let div = document.querySelector("div");
+
+        input.addEventListener('change', function(event) {
+            let fsz = String(event.target.value);
+            div.style.fontSize = fsz + "px";
+        });
     </script>
 </body>
 </html>
