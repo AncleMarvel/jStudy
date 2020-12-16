@@ -26,7 +26,15 @@
     -->
 
     <script>
-        
+        'use strict';
+        let btn = document.querySelector("button");
+        let msg = document.querySelector(".message");
+        let notif = new Audio('notification.mp3');
+        btn.addEventListener('click', function() {
+            msg.style.top = "calc(70vh + 20px)";
+            // msg.style.transform = "-100px"; IT DOES NOT WORK
+            notif.play();
+        });
     </script>
 </body>
 

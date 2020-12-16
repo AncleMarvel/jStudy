@@ -4,7 +4,6 @@ const texts = {
     text2: 'Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты.',
     text3: 'Проснувшись однажды утром после беспокойного сна, Грегор Замза обнаружил.'
 };
-
 /* 
 1. Получите ссылку на .text, например с помощью querySelector
 2. Получите коллекцию, в которой хранятся все .nav-link, например с помощью querySelectorAll
@@ -12,6 +11,12 @@ const texts = {
     обработчик клика функцию clickHandler.
 */
 
+let links = document.querySelectorAll(".nav-link");
+let txt = document.querySelector(".text");
+
+links.forEach(function(link) {
+    link.addEventListener('click', clickHandler);
+});
 
 /**
  * Обработчик клика по .nav-link
@@ -20,7 +25,8 @@ const texts = {
 function clickHandler(event) {
     // здесь вызывайте changeText и changeActiveClass, и передавайте
     // им объект события.
-   
+    changeActiveClass(event);
+    changeText(event);
 }
 
 /**
@@ -29,7 +35,12 @@ function clickHandler(event) {
  * @param {MouseEvent} event 
  */
 function changeActiveClass(event) {
-    
+    links.forEach(function(link) {
+        if (link.classList.contains("active")) {
+            link.classList.remove("active");
+        };
+    });
+    event.target.classList.add("active");
 }
 
 /**
@@ -39,5 +50,7 @@ function changeActiveClass(event) {
  * @param {MouseEvent} event 
  */
 function changeText(event) {
-    
+    let textInsideLink = event.target.innerText;
+    let lastNumberInTextInsideLink = +textInsideLink[textInsideLink.length - 1];
+    txt.innerText = texts[`text${lastNumberInTextInsideLink}`];
 }
