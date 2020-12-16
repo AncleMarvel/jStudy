@@ -17,7 +17,12 @@
     padding. -->
 
     <script>
-        
+        "use strict";
+        console.log("***Ex 1***");
+        let divs = document.querySelectorAll("div");
+        divs.forEach(function(div) {
+            div.style.padding = "10px";
+        });
     </script>
 </body>
 </html>

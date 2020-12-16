@@ -44,7 +44,20 @@
     -->
 
     <script>
+        "use strict";
+        console.log("***Ex 1***");
+        let productCards = document.querySelectorAll(".product");
+        productCards.forEach(function(product) {
+            product.style.background = "rgb(87, 91, 158)";
+        });
 
+        console.log("***Ex 2***");
+        let namesOfProductCards = document.querySelectorAll(".productName");
+        namesOfProductCards.forEach(function(name) {
+            name.style.color = "grey";
+            name.style.fontsize = "40px";
+            name.style.weight = "900";
+        });
     </script>
 </body>
 </html>
