@@ -23,18 +23,14 @@ let app = {
      * Метод вставляет пешки на доску.
      */
     insertPawns() {
-        // 6. получаем все теги td из 7 линии игрового поля, туда мы будем вставлять белые пешки
-        let whitePawnsRow = document.querySelectorAll();
+        let whitePawnsRow = document.querySelectorAll('tr:nth-child(7) td');
         for (let i = 0; i < whitePawnsRow.length; i++) {
-            // 6.1 вставляем в текущий тег td белую пешку
-            whitePawnsRow[i].innerHTML = this.getFigure(, );
+            whitePawnsRow[i].innerHTML = this.getFigure('pawn', 'whiteFigure');
         }
 
-        // 6.2 получаем все теги td из 2 линии игрового поля, туда мы будем вставлять черные пешки
-        let blackPawnsRow = document.querySelectorAll();
+        let blackPawnsRow = document.querySelectorAll('tr:nth-child(2) td');
         for (let i = 0; i < blackPawnsRow.length; i++) {
-            // 6.3 вставляем в текущий тег td черную пешку
-            blackPawnsRow[i].innerHTML = this.getFigure(, );
+            blackPawnsRow[i].innerHTML = this.getFigure('pawn', 'blackFigure');
         }
     },
 
@@ -42,15 +38,10 @@ let app = {
      * Метод вставляет на доску все фигуры, кроме пешек.
      */
     insertFiguresOnDesk() {
-        // 5. в цикле перебираем массив positions
-        for (let i = 0; i < ; i++) {
-            // 5.1 получаем ссылку на тег td с атрибутами data-rownum и data-colchar, которым будут соответствовать свойства
-            // coordRow и coordCol из массива positions
-            let cell = document.querySelector(`[data-rownum="${positions[i].}"][data-colchar="${positions[i].}"]`);
-            // 5.2 из массива positions, для текущего объекта по индексу i, передаем название фигуры, затем цвет+"Figure"
-            let figure = this.getFigure(positions[i]., positions[i].+"Figure");
-            // 5.3 в innerHTML текущей ячейки ставим figure
-            cell. = ;
+        for (let i = 0; i < positions.length; i++) {
+            let cell = document.querySelector(`[data-rownum="${positions[i].coordRow}"][data-colchar="${positions[i].coordCol}"]`);
+            let figure = this.getFigure(positions[i].figure, positions[i].color+"Figure");
+            cell.innerHTML = figure;   
         }
     },
 
@@ -62,8 +53,7 @@ let app = {
      * @returns {string} 
      */
     getFigure(name, colorClass) {
-        // 4. возвращаем в виде строки html-разметку фигуры, пример фигуры смотрите здесь https://fontawesome.com/icons/chess-rook?style=solid
-        return `<i class="fas fa-chess-${} ${}"></i>`; // вставьте в ${} нужные значения
+        return `<i class="fas fa-chess-${name} ${colorClass}"></i>`;
     },
 
     /**
@@ -71,30 +61,17 @@ let app = {
      * @returns {string} html разметка в виде строки.
      */
     generateBoard() {
-        // 3. создаем переменную board и присваиваем ей пустую строку, в ней будет храниться разметка игрового поля в виде строки
-        
-        // 3.1 создаем переменную rowStartWithColor, в которой укажем, что линия на игровом поле будет начинаться с белого цвета
-        // т.е. присваиваем строку "white"
-        
-        // 3.2 в цикле перебираем все строки из конфига
-        for (let i = 0; i < ; i++) {
-            // 3.3 здесь в переменной row в виде строки будет храниться разметка для линии на поле (тег tr),
-            // сейчас туда присваиваем пустую строку
+        let board = "";
+        let rowStartWithColor = 'white';
+        for (let i = 0; i < this.config.rows.length; i++) {
             let row = "";
-            // 3.4 проверяем, начинаем ли мы линию (переменная rowStartWithColor) с белого цвета (строка "white")
             if (rowStartWithColor == 'white') {
-                // 3.5 в переменную row записываем результат работы функции this.generateRow,
-                // которой передали цвет, с которого начинается линия на поле, а также this.config.rows[i]
-                row = this.generateRow(, this.config.rows[i]);
-                // 3.6 затем меняем rowStartWithColor на "black"
-                
+                row = this.generateRow(rowStartWithColor, this.config.rows[i]);
+                rowStartWithColor = 'black';
             } else {
-                // 3.7 делаем то же что и в п. 1.5
-                row = this.generateRow(, this.config.rows[i]);
-                // 3.8 меняем rowStartWithColor на "white"
-                
+                row = this.generateRow(rowStartWithColor, this.config.rows[i]);
+                rowStartWithColor = 'white';
             }
-            // 3.9 в board дописываем с помощью +=, то что получилось в переменной row
             board += row;
         }
         return `<table>${board}</table>`;
@@ -110,29 +87,17 @@ let app = {
      * @returns {string} html-разметка, тег tr с оформленными внутри тегами td.
      */
     generateRow(startWithColor, rowNum) {
-        // 2. создаем переменную currentColorClass, в которую пишем startWithColor
-        
-        // 2.1 создаем переменную row и присваиваем ей пустую строку, в ней будет храниться набор тегов td в виде
-        // строки, т.е. это будет одна линия игрового поля
-        
-        // 2.2 в цикле перебираем массив cols из config
-        for (let i = 0; i < ; i++) {
-            // 2.3 создаем переменную field, в которую записываем пустую строку, это будет тег td, ячейка игрового поля
-            
-            // 2.4 проверяем, равняется ли currentColorClass строке "white"
-            if () {
-                // 2.5 в переменную field пишем результат вызова функции this.generateField, которой передаем цвет ячейки игрового
-                // поля в виде строки, затем номер строки игровой доски в виде числа, последним аргументом передаем this.config.cols[i]
-                 = this.generateField(, , this.config.cols[i]);
-                // 2.6 присваиваем в currentColorClass строку "black"
-                
+        let currentColorClass = startWithColor;
+        let row = "";
+        for (let i = 0; i < this.config.cols.length; i++) {
+            let field = "";
+            if (currentColorClass === 'white') {
+                field = this.generateField('white', rowNum, this.config.cols[i]);
+                currentColorClass = 'blackField';
             } else {
-                // 2.7 делаем то же что и в п. 2.5, только первым параметром передаем "black"
-                 = this.generateField(, , this.config.cols[i]);
-                // 2.8 переменной currentColorClass присваиваем строку "white"
-                
+                field = this.generateField('black', rowNum, this.config.cols[i]);
+                currentColorClass = 'white';
             }
-            // 2.9 в переменную row дописываем с помощью += то что получилось в field
             row += field;
         }
         return `<tr>${row}</tr>`;
@@ -147,8 +112,7 @@ let app = {
      * @returns {string} html-разметка с заполненными атрибутами координат и классом цвета.
      */
     generateField(color, rowNum, colChar) {
-        // 1. вставьте нужные значения в атрибуты
-        return `<td data-rownum="${}" data-colchar="${}" class="${}"></td>`;
+        return `<td data-rownum="${rowNum}" data-colchar="${colChar}" class="${color}"></td>`;
     },
 
     /**
@@ -156,16 +120,11 @@ let app = {
      * слева, с указанием номера строки.
      */
     insertRowsNumbers() {
-        // 7. получаем все теги tr
-        let trs = document.querySelectorAll();
-        // 7.1 перебираем эти теги в цикле
-        for (let i = 0; i < ; i++) {
-            // 7.2 создаем тег td
-            let td = ;
-            // 7.3 в текущий тег td в innerText вставляем номер строки из this.config.rows
-            td. = this.config.rows[ ];
-            // 7.4 получившийся тег td вставляем в текущую строку (тег tr)
-            trs[ ].insertAdjacentElement("afterbegin", td);
+        let trs = document.querySelectorAll('tr');
+        for (let i = 0; i < trs.length; i++) {
+            let td = document.createElement('td');
+            td.innerText = this.config.rows[i];
+            trs[i].insertAdjacentElement("afterbegin", td);
         }
     },
 
@@ -175,19 +134,13 @@ let app = {
      * цифрами.
      */
     insertColsChars() {
-        // 8. создаем тег tr
-        let tr = ;
-        // 8.1 затем в innerHTML тега tr дописываем пустой тег td
-        tr. += '';
-        // 8.2 в цикле перебираем колонки из this.config.cols
-        for (let i = 0; i < ; i++) {
-            // 8.3 в innerHTML с помощью += дописываем тег td c буквой текущей колонки из this.config.cols
-            tr. += `<td>${this.config.cols[ ]}</td>`;
+        let tr = document.createElement('tr');
+        tr.innerHTML += '<td></td>';
+        for (let i = 0; i < this.config.cols.length; i++) {
+            tr.innerHTML += `<td>${this.config.cols[i]}</td>`;
         }
-        // 8.4 получаем тег tbody
-        let tbody = ;
-        // 8.5 и в него перед </tbody> вставляем значение из переменной tr
-        tbody.insertAdjacentElement(, );
+        let tbody = document.querySelector('tbody');
+        tbody.insertAdjacentElement("beforeend", tr);
     },
 }
 
